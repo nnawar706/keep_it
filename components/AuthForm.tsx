@@ -124,7 +124,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
                 </form>
             </Form>
 
-            {!accountId && <OTP email={form.getValues("email")} accountId={accountId}/>}
+            {accountId && <OTP email={form.getValues("email")} accountId={accountId}/>}
         </div>
     )
 }

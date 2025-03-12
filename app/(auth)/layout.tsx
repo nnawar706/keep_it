@@ -1,7 +1,8 @@
+import { LayoutInterface } from '@/types'
 import Image from 'next/image'
 import React from 'react'
 
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+const AuthLayout = ({ children }: LayoutInterface) => {
   return (
     <div className='flex min-h-screen'>
         <section className="hidden w-1/2 items-center justify-center bg-brand p-10 lg:flex xl:w-2/5">

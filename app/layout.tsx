@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { LayoutInterface } from "@/types";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -17,9 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<LayoutInterface>) {
   return (
     <html lang="en">
       <body

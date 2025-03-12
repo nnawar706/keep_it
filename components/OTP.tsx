@@ -81,15 +81,15 @@ const OTP = ({email, accountId}: OTPProps) => {
                 </AlertDialogDescription>
             </AlertDialogHeader>
             <InputOTP maxLength={6} value={password} onChange={setPassword}>
-          <InputOTPGroup className="shad-otp">
-            <InputOTPSlot index={0} className="shad-otp-slot" />
-            <InputOTPSlot index={1} className="shad-otp-slot" />
-            <InputOTPSlot index={2} className="shad-otp-slot" />
-            <InputOTPSlot index={3} className="shad-otp-slot" />
-            <InputOTPSlot index={4} className="shad-otp-slot" />
-            <InputOTPSlot index={5} className="shad-otp-slot" />
-          </InputOTPGroup>
-        </InputOTP>
+                <InputOTPGroup className="shad-otp">
+                    <InputOTPSlot index={0} className="shad-otp-slot" />
+                    <InputOTPSlot index={1} className="shad-otp-slot" />
+                    <InputOTPSlot index={2} className="shad-otp-slot" />
+                    <InputOTPSlot index={3} className="shad-otp-slot" />
+                    <InputOTPSlot index={4} className="shad-otp-slot" />
+                    <InputOTPSlot index={5} className="shad-otp-slot" />
+                </InputOTPGroup>
+            </InputOTP>
             <AlertDialogFooter>
                 <div className="flex w-full flex-col gap-4">
                     {isActive && <AlertDialogAction className="shad-submit-btn h-12" type="button"

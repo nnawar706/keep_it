@@ -1,11 +1,31 @@
 "use server";
 
 import { ID, Query } from "node-appwrite";
-import { createAdminClient } from "../appwrite";
+import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { avatarUrl } from "@/constants";
 import { handleError, stringify } from "../utils";
 import { cookies } from "next/headers";
+
+export const getCurrentUser = async () => {
+  try {
+    const {databases, account} = await createSessionClient();
+
+    const result = await account.get();
+
+    const user = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.equal("id", result.$id)]
+    );
+
+    if (user.total == 0) return null;
+
+    return stringify(user);
+  } catch (error) {
+    handleError(error, "Failed to get current user.");
+  }
+}
 
 const getUserByEmail = async (email: string) => {
     const { databases } = await createAdminClient();
@@ -19,7 +39,7 @@ const getUserByEmail = async (email: string) => {
     return result.total > 0 ? result.documents[0] : null;
 }
 
-const sendEmailOTP = async ({email}: { email: string }) => {
+export const sendEmailOTP = async ({email}: { email: string }) => {
     const { account } = await createAdminClient();
 
     try {
@@ -69,7 +89,7 @@ export const verifyOTP = async ({accountId, password}: {
 
     const session = await account.createSession(accountId, password);
 
-    (await cookies()).set("appwrite-user-session", session.secret, {
+    (await cookies()).set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
@@ -81,3 +101,5 @@ export const verifyOTP = async ({accountId, password}: {
     handleError(error, "Failed to verify OTP");
   }
 }
+
+export const signOut = async () => {}
