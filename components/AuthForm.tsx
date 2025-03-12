@@ -11,7 +11,7 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import { createAccount } from '@/lib/actions/user.actions';
+import { createAccount, signIn } from '@/lib/actions/user.actions';
 import OTP from './OTP';
 import { toast } from 'sonner';
 
@@ -41,9 +41,14 @@ const AuthForm = ({ type }: AuthFormProps) => {
         setErrorMessage("");
 
         try {
-            const user = await createAccount({name: values.name || "", email: values.email});
+            const user = type === 'sign-up' ? await createAccount({name: values.name || "", email: values.email})
+            : await signIn({email: values.email});
 
-            setAccountId(user.accountId);
+            if (user.accountId !== null) {
+                setAccountId(user.accountId);
+            } else {
+                setErrorMessage("No user found.");
+            }
         } catch (error) {
             setErrorMessage("Failed to create account. Please try again.");
         } finally {

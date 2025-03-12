@@ -3,7 +3,6 @@
 import {
     AlertDialog,
     AlertDialogAction,
-    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
     AlertDialogFooter,
@@ -47,7 +46,7 @@ const OTP = ({email, accountId}: OTPProps) => {
             const sessionId = await verifyOTP({accountId, password});
             
             if (sessionId) {
-                toast.success("New user account created successfully.");
+                toast.success("User account verified successfully.");
                 push("/");
             } else {
                 toast.error("Failed to verify OTP.");

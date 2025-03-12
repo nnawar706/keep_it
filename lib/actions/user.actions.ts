@@ -6,6 +6,7 @@ import { appwriteConfig } from "../appwrite/config";
 import { avatarUrl } from "@/constants";
 import { handleError, stringify } from "../utils";
 import { cookies } from "next/headers";
+import { SignInProps } from "@/types";
 
 export const getCurrentUser = async () => {
   try {
@@ -23,7 +24,7 @@ export const getCurrentUser = async () => {
 
     return stringify(user);
   } catch (error) {
-    handleError(error, "Failed to get current user.");
+    console.log("Failed to get current user.");
   }
 }
 
@@ -99,6 +100,22 @@ export const verifyOTP = async ({accountId, password}: {
     return stringify({ sessionId: session.$id });
   } catch (error) {
     handleError(error, "Failed to verify OTP");
+  }
+}
+
+export const signIn = async ({email}: SignInProps) => {
+  try {
+    const user = await getUserByEmail(email);
+
+    if (user) {
+      await sendEmailOTP({email});
+
+      return stringify({accountId: user.id});
+    } else {
+      return stringify({accountId: null});
+    }
+  } catch (error) {
+    handleError(error, "Failed to sign user in.");
   }
 }
 

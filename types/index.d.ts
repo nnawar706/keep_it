@@ -19,3 +19,7 @@ export interface HeaderProps {
     userId: string;
     accountId: string;
 }
+
+export interface SignInProps {
+    email: string;
+}
