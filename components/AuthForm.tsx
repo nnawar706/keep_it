@@ -11,6 +11,7 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
+import { createAccount } from '@/lib/actions/user.actions';
 
 const authFormSchema = (formType: FormType) => {
     return z.object({
@@ -38,11 +39,13 @@ const AuthForm = ({ type }: AuthFormProps) => {
         setErrorMessage("");
 
         try {
-            
+            const user = await createAccount({name: values.name || "", email: values.email});
+
+            setAccountId(user.accountId);
         } catch (error) {
-            
+            setErrorMessage("Failed to create account. Please try again.");
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
     }
     
