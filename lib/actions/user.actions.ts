@@ -5,6 +5,7 @@ import { createAdminClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { avatarUrl } from "@/constants";
 import { handleError, stringify } from "../utils";
+import { cookies } from "next/headers";
 
 const getUserByEmail = async (email: string) => {
     const { databases } = await createAdminClient();
@@ -58,3 +59,25 @@ export const createAccount = async ({name, email}: {
   
     return stringify({ accountId });
   };
+
+export const verifyOTP = async ({accountId, password}: {
+  accountId: string;
+  password: string;
+}) => {
+  try {
+    const { account } = await createAdminClient();
+
+    const session = await account.createSession(accountId, password);
+
+    (await cookies()).set("appwrite-user-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true
+    });
+
+    return stringify({ sessionId: session.$id });
+  } catch (error) {
+    handleError(error, "Failed to verify OTP");
+  }
+}

@@ -12,6 +12,8 @@ import { Button } from './ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { createAccount } from '@/lib/actions/user.actions';
+import OTP from './OTP';
+import { toast } from 'sonner';
 
 const authFormSchema = (formType: FormType) => {
     return z.object({
@@ -23,7 +25,7 @@ const authFormSchema = (formType: FormType) => {
 const AuthForm = ({ type }: AuthFormProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
-    const [accountId, setAccountId] = useState<string | null>(null);
+    const [accountId, setAccountId] = useState<string>("");
 
     const formSchema = authFormSchema(type)
     const form = useForm<z.infer<typeof formSchema>>({
@@ -101,7 +103,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
                         />
                     )}
 
-                    {errorMessage && <p className='error-message'>*{errorMessage}</p>}
+                    {errorMessage && toast.error(errorMessage)}
 
                     <Button type='submit' className='form-submit-button' disabled={isLoading}>
                         {isLoading && (
@@ -121,6 +123,8 @@ const AuthForm = ({ type }: AuthFormProps) => {
                     </div>
                 </form>
             </Form>
+
+            {!accountId && <OTP email={form.getValues("email")} accountId={accountId}/>}
         </div>
     )
 }
