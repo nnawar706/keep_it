@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { createAccount, signIn } from '@/lib/actions/user.actions';
 import OTP from './OTP';
 import { toast } from 'sonner';
+import { loaderIconUrl } from '@/constants';
 
 const authFormSchema = (formType: FormType) => {
     return z.object({
@@ -112,7 +113,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
                     <Button type='submit' className='form-submit-button' disabled={isLoading}>
                         {isLoading && (
-                            <Image src={"/assets/icons/loader.svg"} 
+                            <Image src={loaderIconUrl} 
                             className='mr-1 animate-spin' alt='loader' height={18} width={18}/>
                         )}
                         {type === 'sign-in' ? 'Sign In' : 'Sign Up'}

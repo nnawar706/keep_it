@@ -10,6 +10,12 @@ export interface AuthFormProps {
     type: FormType
 }
 
+export interface SidebarProps {
+    name: string;
+    avatar: string;
+    email: string;
+}
+
 export interface OTPProps {
     email: string;
     accountId: string;

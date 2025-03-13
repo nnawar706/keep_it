@@ -2,6 +2,9 @@ export const avatarUrl = "https://img.freepik.com/free-psd/3d-illustration-perso
 
 export const logoIconUrl = "/assets/logo.svg";
 export const faviconUrl = "/assets/favicon.png";
+export const fileIconUrl = "/assets/files.png";
+export const fileIconUrl2 = "/assets/files-2.png";
+export const loaderIconUrl = "/assets/icons/loader.svg";
 export const logoutIconUrl = "/assets/icons/logout.svg";
 export const searchIconUrl = "/assets/icons/search.svg";
 

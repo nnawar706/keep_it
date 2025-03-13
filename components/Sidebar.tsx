@@ -1,18 +1,19 @@
 "use client"
 
-import { faviconUrl, logoIconUrl, navItems } from '@/constants';
+import { faviconUrl, fileIconUrl2, logoIconUrl, navItems } from '@/constants';
 import { cn } from '@/lib/utils';
+import { SidebarProps } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
-const Sidebar = () => {
+const Sidebar = ({name, avatar, email}: SidebarProps) => {
   const pathname = usePathname();
 
   return (
     <aside className='sidebar'>
-      <Link href={'/'}>
+      <Link href={'/'} className='mb-6'>
         <Image src={logoIconUrl} alt='logo' width={360} height={100} 
         className='hidden h-auto lg:block'/>
         <Image src={faviconUrl} alt='favicon' width={160} height={40} 
@@ -32,6 +33,16 @@ const Sidebar = () => {
           ))}
         </ul>
       </nav>
+
+      <Image src={fileIconUrl2} alt='files' width={506} height={418} className='w-full'/>
+
+      <div className='sidebar-user-info'>
+        <Image src={avatar} alt='avatar' width={44} height={44} className='sidebar-user-avatar'/>
+        <div className='hidden lg:block'>
+          <p className='subtitle-2 capitalize'>{name}</p>
+          <p className='caption'>{email}</p>
+        </div>
+      </div>
     </aside>
   )
 }

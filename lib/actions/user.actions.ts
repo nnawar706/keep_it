@@ -22,7 +22,7 @@ export const getCurrentUser = async () => {
 
     if (user.total == 0) return null;
 
-    return stringify(user);
+    return stringify(user.documents[0]);
   } catch (error) {
     console.log("Failed to get current user.");
   }
