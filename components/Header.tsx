@@ -5,12 +5,15 @@ import { Button } from './ui/button'
 import Image from 'next/image'
 import { logoutIconUrl } from '@/constants'
 import { signOut } from '@/lib/actions/user.actions'
+import FileUploader from './FileUploader'
 
 const Header = ({userId, accountId}: HeaderProps) => {
     return (
         <header className='header'>
             <Searchbar/>
             <div className='header-wrapper'>
+                <FileUploader userId={userId} accountId={accountId}/>
+                
                 <form action={async () => {
                     "use server";
 

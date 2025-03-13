@@ -10,14 +10,15 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { usePathname } from 'next/navigation';
-import { SidebarProps } from '@/types';
+import { MobileNavProps } from '@/types';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
 import { signOut } from '@/lib/actions/user.actions';
 import { Separator } from './ui/separator';
+import FileUploader from './FileUploader';
 
-const MobileNav = ({name, email, avatar}: SidebarProps) => {
+const MobileNav = ({$id, accountId, name, email, avatar}: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathname = usePathname();
 
@@ -59,7 +60,7 @@ const MobileNav = ({name, email, avatar}: SidebarProps) => {
           <Separator className='mt-3 bg-light-200/20'/>
 
           <div className='flex flex-col justify-between gap-5 mt-8'>
-            {/* fileuploader */}
+            <FileUploader userId={$id} accountId={accountId}/>
 
             <Button type='submit' className='mobile-sign-out-button'
             onClick={async () => await signOut()}>

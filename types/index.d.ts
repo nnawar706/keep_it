@@ -10,15 +10,8 @@ export interface AuthFormProps {
     type: FormType
 }
 
-export interface SidebarProps {
-    name: string;
-    avatar: string;
+export interface SignInProps {
     email: string;
-}
-
-export interface OTPProps {
-    email: string;
-    accountId: string;
 }
 
 export interface HeaderProps {
@@ -26,6 +19,20 @@ export interface HeaderProps {
     accountId: string;
 }
 
-export interface SignInProps {
-    email: string;
+export interface SidebarProps extends SignInProps {
+    name: string;
+    avatar: string;
+}
+
+export interface MobileNavProps extends SidebarProps {
+    $id: string;
+    accountId: string
+}
+
+export interface OTPProps extends SignInProps {
+    accountId: string;
+}
+
+export interface FileUploadProps extends HeaderProps {
+    className?: string;
 }
