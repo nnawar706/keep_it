@@ -7,6 +7,7 @@ import { avatarUrl } from "@/constants";
 import { handleError, stringify } from "../utils";
 import { cookies } from "next/headers";
 import { SignInProps } from "@/types";
+import { redirect } from "next/navigation";
 
 export const getCurrentUser = async () => {
   try {
@@ -119,4 +120,16 @@ export const signIn = async ({email}: SignInProps) => {
   }
 }
 
-export const signOut = async () => {}
+export const signOut = async () => {
+  const { account } = await createSessionClient();
+
+  try {
+    await account.deleteSession("current");
+
+    (await cookies()).delete("appwrite-session");
+  } catch (error) {
+    handleError(error, "Failed to sign out.");
+  } finally {
+    redirect("/sign-in");
+  }
+}

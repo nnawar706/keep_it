@@ -2,14 +2,18 @@
 
 import { searchIconUrl } from '@/constants'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
 import { Input } from './ui/input'
+import { Models } from 'node-appwrite'
 
 const Searchbar = () => {
     const {push} = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
+    const [results, setResults] = useState<Models.Document[]>([])
     
     return (
         <div className='search'>
@@ -20,6 +24,10 @@ const Searchbar = () => {
                     className='search-input'
                     onChange={(e) => setQuery(e.target.value)}
                 />
+
+                {isOpen && (
+                    <ul className='search-result'></ul>
+                )}
             </div>
         </div>
     )

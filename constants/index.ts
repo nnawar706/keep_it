@@ -7,6 +7,7 @@ export const fileIconUrl2 = "/assets/files-2.png";
 export const loaderIconUrl = "/assets/icons/loader.svg";
 export const logoutIconUrl = "/assets/icons/logout.svg";
 export const searchIconUrl = "/assets/icons/search.svg";
+export const menuIconUrl = "/assets/icons/menu.svg";
 
 export const navItems = [
     {
